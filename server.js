@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/authRoutes");
+const friendInvitationRoutes = require("./routes/friendInvitationRoutes.js");
 const socketServer = require("./socketServer");
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use(cors());
 
 // routes 등록
 app.use("/api/auth", authRoutes);
+app.use("/api/friend-invitation", friendInvitationRoutes);
 
 const server = http.createServer(app);
 socketServer.registerSocketServer(server);
