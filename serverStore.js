@@ -24,6 +24,7 @@ const removeConnectedUser = (socketId) => {
   }
 };
 
+// 현재 온라인 사용자들의 연결 정보를 반환한다.
 const getActiveConnections = (userId) => {
   const activeConnections = [];
   connectedUsers.forEach(function (value, key) {
