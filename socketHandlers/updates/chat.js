@@ -17,8 +17,6 @@ const updateChatHistory = async (
       select: "username _id",
     },
   });
-  console.log(11111);
-  console.log(conversation);
   if (conversation) {
     const io = serverStore.getSocketServerInstance();
     if (toSpecifiedSocketId) {
