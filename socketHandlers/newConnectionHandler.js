@@ -1,5 +1,6 @@
 const serverStore = require("../serverStore");
-const friendsUpdate = require("../socketHandlers/updates/friends");
+const friendsUpdate = require("./updates/friends");
+const roomsUpdate = require("./updates/rooms");
 const newConnectionHandler = async (socket, io) => {
   const userDetails = socket.user;
 
@@ -13,6 +14,11 @@ const newConnectionHandler = async (socket, io) => {
 
   // 친구 목록을 업데이트
   friendsUpdate.updateFriends(userDetails.userId);
+
+  //대화방 목록을 업데이트
+  setTimeout(() => {
+    roomsUpdate.updateRooms(socket.id);
+  }, [500]);
 };
 
 module.exports = newConnectionHandler;

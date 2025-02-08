@@ -4,6 +4,8 @@ const newConnectionHandler = require("./socketHandlers/newConnectionHandler");
 const directMessageHandler = require("./socketHandlers/directMessageHandler");
 const directChatHistoryHandler = require("./socketHandlers/directChatHistoryHandler");
 const roomCreateHandler = require("./socketHandlers/roomCreateHandler");
+const roomJoinHandler = require("./socketHandlers/roomJoinHandler");
+const roomLeaveHandler = require("./socketHandlers/roomLeaveHandler");
 
 const serverStore = require("./serverStore");
 const registerSocketServer = (server) => {
@@ -26,9 +28,6 @@ const registerSocketServer = (server) => {
     io.emit("online-users", { onlineUsers });
   };
   io.on("connection", (socket) => {
-    console.log("사용자가 연결되었습니다.");
-    console.log(socket.id);
-
     newConnectionHandler(socket, io);
     emitOnlineUsers();
 
@@ -41,9 +40,20 @@ const registerSocketServer = (server) => {
     });
 
     socket.on("room-create", () => {
+      console.log(222);
+      console.log(socket.id);
       roomCreateHandler(socket);
     });
 
+    socket.on("room-join", (data) => {
+      roomJoinHandler(socket, data);
+    });
+
+    socket.on("room-leave", (data) => {
+      console.log(111111);
+      console.log(socket.id);
+      roomLeaveHandler(socket, data);
+    });
     socket.on("disconnect", () => {
       disconnectHandler(socket);
     });
