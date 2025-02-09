@@ -13,7 +13,7 @@ const roomJoinHandler = (socket, data) => {
   serverStore.joinActiveRoom(roomId, participantDetails);
 
   // Web RTC 커넥션을 위한 정보 전달
-  // 방에 있는 나 외에 사용자들에게 내 사전 정보를 전달
+  // 방에 있는 나 외에 사용자들에게 내 사전 정보를 전달하기 위해 피어 정보를 전송
   roomDetails.participants.forEach((participant) => {
     if (participant.socketId !== participantDetails.socketId) {
       socket.to(participant.socketId).emit("conn-prepare", {
